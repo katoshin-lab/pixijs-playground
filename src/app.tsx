@@ -5,7 +5,7 @@ import BaseComponent from './components';
 const App = () => {
 
   return (
-    <div className='wrapper'>
+    <div className='wrapper' style={{display: 'flex', justifyContent: 'center'}}>
       <BaseComponent />
     </div>
   )
