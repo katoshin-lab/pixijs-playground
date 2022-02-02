@@ -26,6 +26,11 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
+"@inlet/react-pixi@^6.6.5":
+  version "6.6.5"
+  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-6.6.5.tgz#46c8986b3e7fd3ec83198260cd03ac78e3319009"
+  integrity sha512-xflQcnxHtf/wlSAaFSk4r6ePGwe4iRRkMceYRqbweTTKfJEudN5LksxDbxpuNPm9vw6DqFKnOtUXG1Qa1ZmNjg==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -328,6 +333,13 @@
   version "17.0.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.14.tgz#33b9b94f789a8fedd30a68efdbca4dbb06b61f20"
   integrity sha512-SbjLmERksKOGzWzPNuW7fJM7fk3YXVTFiZWB/Hs99gwhk+/dnrQRPBQjPW9aO+fi1tAffi9PrwFvsmOKmDTyng==
+
+"@types/pixi.js@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@types/pixi.js/-/pixi.js-5.0.0.tgz#3fbd6d9d26cb563a0f2870e0ea767bc62dddf1b8"
+  integrity sha512-yZqQBR043lRBlBZci2cx6hgmX0fvBfYIqFm6VThlnueXEjitxd3coy+BGsqsZ7+ary7O//+ks4aJRhC5MJoHqA==
+  dependencies:
+    pixi.js "*"
 
 "@types/prop-types@*":
   version "15.7.4"
@@ -1963,7 +1975,7 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
-pixi.js@^6.2.2:
+pixi.js@*, pixi.js@^6.2.2:
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/pixi.js/-/pixi.js-6.2.2.tgz#bc8319f007e48c0d5190b32b3e4f1d5bee0677e4"
   integrity sha512-/xCnJUsWTZuacR6JYTnRbUb+5grzlqpp2O1Ub7bCZCE3FApTCs7nMNYeLfdeP+np/MlGaM+SsPh2cXcafR3OZw==
@@ -2364,7 +2376,7 @@ sockjs@^0.3.21:
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
 
-source-map-support@~0.5.20:
+source-map-support@^0.5.21, source-map-support@~0.5.20:
   version "0.5.21"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.21.tgz#04fe7c7f9e1ed2d662233c28cb2b35b9f63f6e4f"
   integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
