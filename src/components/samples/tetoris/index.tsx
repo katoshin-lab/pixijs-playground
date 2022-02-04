@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useTick, Graphics, Container } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
-// import Block from './atoms/block';
-import BlockGroup from './molecules/blockGroup';
+import DropBlockGroup from './organisms/dropBlockGroup';
 
 let i = 0;
 let phaseDurationNum = 0;
 
 const Tetoris = () => {
-  const { useCallback, useState } = React;
+  const { useCallback, useState, useEffect } = React;
+
   const [phase, setPhase] = useState(0);
   useTick(delta => {
     i += 0.25 * delta;
@@ -24,10 +24,26 @@ const Tetoris = () => {
     g.endFill();
   }, [])
 
+  const [drop, setDrop] = useState(false);
+  const [droppingPhase, setDroppingPhase] = useState(0);
+  useEffect(() => {
+    if (drop) {
+      setDroppingPhase(phase);
+    }
+  }, [drop])
+
+  useEffect(() => {
+    setDrop(true);
+  }, [])
+
+  const onFinishDrop = (): void => {
+    setDrop(false);
+  }
+
   return (
     <Container position={[0, 0]}>
       <Graphics draw={draw} />
-      <BlockGroup centerPosX={5} centerPosY={phase} shape='i' />
+      {drop && <DropBlockGroup droppingPhase={phase - droppingPhase} onFinishDrop={onFinishDrop} />}
     </Container>
   )
 }

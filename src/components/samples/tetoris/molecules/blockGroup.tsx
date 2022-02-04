@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Container } from '@inlet/react-pixi';
 import Block from '../atoms/block';
+import { Shapes } from '../types/shapes';
 
 interface BlockGroup {
-  shape: 't' | 'i' | 'o' | 'l' | 'j' | 's' | 'z',
+  shape: Shapes
   centerPosX: number,
   centerPosY: number
 }
@@ -17,9 +18,9 @@ const BlockGroup: React.VFC<BlockGroup> = ({
   const shapes = {
     t: [
       { x: 0, y: 0 },
-      { x: 0, y: 1 },
       { x: -1, y: 0 },
-      { x: 1, y: 0 }
+      { x: 1, y: 0 },
+      { x: 0, y: -1 },
     ],
     i: [
       { x: 0, y: 0 },
@@ -30,32 +31,32 @@ const BlockGroup: React.VFC<BlockGroup> = ({
     o: [
       { x: 0, y: 0 },
       { x: -1, y: 0 },
-      { x: 0, y: 1 },
-      { x: -1, y: 1 }
+      { x: 0, y: -1 },
+      { x: -1, y: -1 }
     ],
     l: [
       { x: 0, y: 0 },
       { x: -1, y: 0 },
       { x: 1, y: 0 },
-      { x: 1, y: 1 },
+      { x: 1, y: -1 },
     ],
     j: [
       { x: 0, y: 0 },
       { x: -1, y: 0 },
       { x: 1, y: 0 },
-      { x: -1, y: 1 },
+      { x: -1, y: -1 },
     ],
     s: [
       { x: 0, y: 0 },
       { x: -1, y: 0 },
-      { x: 0, y: 1 },
-      { x: 1, y: 1 },
+      { x: 0, y: -1 },
+      { x: 1, y: -1 },
     ],
     z: [
       { x: 0, y: 0 },
       { x: 1, y: 0 },
-      { x: 0, y: 1 },
-      { x: -1, y: 1 },
+      { x: 0, y: -1 },
+      { x: -1, y: -1 },
     ]
   }
 
