@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useTick, Graphics, Container } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
-import Block from './atoms/block';
+// import Block from './atoms/block';
+import BlockGroup from './molecules/blockGroup';
 
 let i = 0;
 let phaseDurationNum = 0;
@@ -26,7 +27,7 @@ const Tetoris = () => {
   return (
     <Container position={[0, 0]}>
       <Graphics draw={draw} />
-      <Block posY={phase} />
+      <BlockGroup centerPosX={5} centerPosY={phase} shape='i' />
     </Container>
   )
 }
