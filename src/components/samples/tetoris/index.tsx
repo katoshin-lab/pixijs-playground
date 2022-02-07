@@ -3,15 +3,20 @@ import { useTick, Graphics, Container } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
 import DropBlockGroup from './organisms/dropBlockGroup';
 
+const LEVEL_CEFFICIENT = 0.12;
+const SPEED_COEFFICIENT = 0.7;
+
 let i = 0;
 let phaseDurationNum = 0;
 
 const Tetoris = () => {
   const { useCallback, useState, useEffect } = React;
 
+  // const [lecel, setLevel] = useState(1);
+  const level = 2;
   const [phase, setPhase] = useState(0);
   useTick(delta => {
-    i += 0.25 * delta;
+    i += level * LEVEL_CEFFICIENT * SPEED_COEFFICIENT * delta;
     Math.floor(i) % 10 === 0 && Math.floor(i) !== phaseDurationNum && setPhase(phase + 1);
     phaseDurationNum = Math.floor(i);
   })
