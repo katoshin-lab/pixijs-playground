@@ -8,7 +8,7 @@ const BaseComponent = () => {
     <Stage
       width={450}
       height={900}
-      options={{ backgroundColor: 0xccf1f5 }}
+      options={{ backgroundColor: 0x111111 }}
     >
       {/* <Rotate /> */}
       <Tetoris />

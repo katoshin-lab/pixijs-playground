@@ -4,13 +4,15 @@ import Block from '../atoms/block';
 import { Shapes } from '../types/shapes';
 
 interface BlockGroup {
-  shape: Shapes
-  centerPosX: number,
-  centerPosY: number
+  shape: Shapes;
+  frequency: number;
+  centerPosX: number;
+  centerPosY: number;
 }
 
 const BlockGroup: React.VFC<BlockGroup> = ({
   shape,
+  frequency,
   centerPosX,
   centerPosY,
 }) => {
@@ -65,7 +67,11 @@ const BlockGroup: React.VFC<BlockGroup> = ({
   return (
     <Container>
       {shapes[shape].map(({ x, y }, index) => (
-        <Block key={index} posX={centerPosX + x} posY={centerPosY + y} />
+        <Block
+          key={index}
+          posX={centerPosX + x}
+          posY={centerPosY * frequency + y}
+        />
       ))}
     </Container>
   )
