@@ -1,9 +1,14 @@
 import * as React from 'react';
-import { useTick, Graphics, Container } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
+import { useTick, Graphics, Container } from '@inlet/react-pixi';
+// components
 import DropBlockGroup from './organisms/dropBlockGroup';
+// hooks
+import { useStackManager } from './hooks/stackManager';
+// modules
 import config from './config';
-import type { Mino } from './types/mino';
+// types
+import type { Mino, Shapes } from './types/mino';
 
 let i = 0;
 let phaseDurationNum = 0;
@@ -12,13 +17,13 @@ const Tetoris = () => {
   const { useCallback, useState, useEffect, useMemo } = React;
 
   // const [level, setLevel] = useState(1);
-  const level = 1;
+  const level = 4;
   const frequency = useMemo(() => level <= 3 ? { coefficient: 1, multiply: 1 } : level <= 6 ? { coefficient: 0.5, multiply: 2 } : { coefficient: 0.25, multiply: 4 }, [level])
   const [phase, setPhase] = useState(0);
   useTick(_delta => {
     // levelが1から10までの範囲で、1だとiに0.025,10だとiに1づつ足され、偶数の時にフェーズをカウントする
     i += level * config.level.coefficient * config.speed.coefficient * frequency.multiply
-    console.log(level * config.level.coefficient * config.speed.coefficient * frequency.multiply)
+    // console.log(level * config.level.coefficient * config.speed.coefficient * frequency.multiply)
     Math.floor(i) % 2 === 0 && Math.floor(i) !== phaseDurationNum && setPhase(phase + 1);
     phaseDurationNum = Math.floor(i);
   })
@@ -27,7 +32,7 @@ const Tetoris = () => {
     g.clear();
     g.beginFill(0x232323);
     g.lineStyle(2, 0x2f2f2f);
-    g.drawRect(25, 98, 400, 800);
+    g.drawRect(25, 98, config.size.board.horizontal, config.size.board.vertical);
     g.endFill();
   }, [])
 
@@ -37,15 +42,19 @@ const Tetoris = () => {
     if (drop) {
       setDroppingPhase(phase);
     }
-  }, [drop])
+  }, [drop]);
 
   useEffect(() => {
     setDrop(true);
-  }, [])
+  }, []);
 
-  const onDrop = useCallback((mino: Mino): void => {
-    console.log(mino);
-  }, [])
+  const { stack, detectCollision, stackMino } = useStackManager();
+  const onDrop = useCallback((mino: Mino, shape: Shapes): void => {
+    console.log(stack, mino, shape);
+    const isCollision = detectCollision(mino);
+    if (isCollision) stackMino(mino, shape);
+    // setStack(stackIfCollision(stack, mino, shape));
+  }, []);
 
   return (
     <Container position={[0, 0]}>
