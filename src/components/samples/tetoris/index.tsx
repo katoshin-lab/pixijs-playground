@@ -3,6 +3,7 @@ import { useTick, Graphics, Container } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
 import DropBlockGroup from './organisms/dropBlockGroup';
 import config from './config';
+import type { Mino } from './types/mino';
 
 let i = 0;
 let phaseDurationNum = 0;
@@ -42,9 +43,9 @@ const Tetoris = () => {
     setDrop(true);
   }, [])
 
-  const onFinishDrop = (): void => {
-    setDrop(false);
-  }
+  const onDrop = useCallback((mino: Mino): void => {
+    console.log(mino);
+  }, [])
 
   return (
     <Container position={[0, 0]}>
@@ -52,7 +53,7 @@ const Tetoris = () => {
       {drop &&
         <DropBlockGroup
           droppingPhase={phase - droppingPhase}
-          onFinishDrop={onFinishDrop}
+          onDrop={onDrop}
           frequency={frequency.coefficient}
         />
       }

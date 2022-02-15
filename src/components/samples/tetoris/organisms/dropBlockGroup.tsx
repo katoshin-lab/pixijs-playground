@@ -1,15 +1,17 @@
 import * as React from 'react';
 import BlockGroup from '../molecules/blockGroup';
+import type { Mino } from '../types/mino';
 
 interface FropBlockGroup {
   droppingPhase: number;
   frequency: number;
-  onFinishDrop: () => void
+  onDrop: (mino: Mino) => void;
 }
 
 const DropBlockGroup: React.VFC<FropBlockGroup> = ({
   droppingPhase,
-  frequency
+  frequency,
+  onDrop
 }) => {
 
   return (
@@ -18,6 +20,7 @@ const DropBlockGroup: React.VFC<FropBlockGroup> = ({
       centerPosX={5}
       centerPosY={droppingPhase}
       frequency={frequency}
+      onDrop={onDrop}
     />
   )
 }
