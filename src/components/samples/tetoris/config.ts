@@ -1,6 +1,10 @@
 export default {
-  block: {
-    size: 40,
+  size: {
+    block: 40,
+    board: {
+      horizontal: 400,
+      vertical: 800,
+    }
   },
   speed: {
     coefficient: 0.0125
