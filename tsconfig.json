@@ -12,7 +12,7 @@
     "outDir": "./lib-ts",
     "declaration": true,
     "sourceMap": true,
-    "allowJs": false,
+    "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": false,
     "moduleResolution": "node",
