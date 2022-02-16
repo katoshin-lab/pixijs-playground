@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import { useTick, Graphics, Container } from '@inlet/react-pixi';
 // components
 import DropBlockGroup from './organisms/dropBlockGroup';
+import StackDrawer from './organisms/stackDrawer';
 // hooks
 import { useStackManager } from './hooks/stackManager';
 // modules
@@ -50,7 +51,6 @@ const Tetoris = () => {
 
   const { stack, detectCollision, stackMino } = useStackManager();
   const onDrop = useCallback((mino: Mino, shape: Shapes): void => {
-    console.log(stack, mino, shape);
     const isCollision = detectCollision(mino);
     if (isCollision) stackMino(mino, shape);
     // setStack(stackIfCollision(stack, mino, shape));
@@ -66,6 +66,7 @@ const Tetoris = () => {
           frequency={frequency.coefficient}
         />
       }
+      <StackDrawer stack={stack} />
     </Container>
   )
 }
