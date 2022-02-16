@@ -5,7 +5,10 @@ import config from '../config';
 export const useStackManager = () => {
   const { useState } = React;
   const baseY = config.size.board.vertical / config.size.block;
-  const stackLevelsArray = [...Array(baseY)].map((_) => [...Array(config.size.board.horizontal / config.size.block)].map(() => null))
+  // create 2-dimensional null array for initializing 20 X 10 stacking
+  const stackLevelsArray = [...Array(baseY)].map(() => (
+    [...Array(config.size.board.horizontal / config.size.block)].map(() => null)
+  ))
 
   const [stack, setStack] = useState<Stack>(stackLevelsArray);
 
@@ -25,7 +28,6 @@ export const useStackManager = () => {
   }
 
   const stackMino = (mino: Mino, shape: Shapes): void => {
-    console.log('stackMino', stack, mino, shape);
     const stacked = [...stack];
     mino.forEach(block => {
       stacked[block.y][block.x] = shape;
