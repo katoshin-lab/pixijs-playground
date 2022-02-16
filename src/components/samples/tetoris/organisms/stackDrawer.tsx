@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Container } from '@inlet/react-pixi';
+import Block from '../atoms/block';
 import type { Stack } from '../types/mino';
 
 interface StackDrawerProps {
@@ -10,7 +12,20 @@ const StackDrawer: React.VFC<StackDrawerProps> = React.memo(({
 }) => {
   console.log(stack)
   return (
-    null
+    <Container>
+      {
+        stack.map((row, y) => (
+          row.map((shape, x) => (
+            shape &&
+            <Block
+              key={`${y}${x}`}
+              posY={y}
+              posX={x}
+            />
+          ))
+        ))
+      }
+    </Container>
   )
 })
 
