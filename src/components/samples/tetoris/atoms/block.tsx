@@ -3,13 +3,13 @@ import { Graphics } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
 import config from '../config';
 
-interface Block {
+interface BlockProps {
   color?: number;
   posX?: number;
   posY?: number;
 }
 
-const Block: React.VFC<Block> = ({ color = 0x252525, posX = 0, posY = 0 }) => {
+const Block: React.VFC<BlockProps> = ({ color = 0x252525, posX = 0, posY = 0 }) => {
   const { useCallback } = React;
   console.log(posY)
   const draw = useCallback((g: PIXI.Graphics): void => {

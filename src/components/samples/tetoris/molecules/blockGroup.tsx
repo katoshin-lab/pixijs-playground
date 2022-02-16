@@ -3,7 +3,7 @@ import { Container } from '@inlet/react-pixi';
 import Block from '../atoms/block';
 import type { Mino, Shapes } from '../types/mino';
 
-interface BlockGroup {
+interface BlockGroupProps {
   shape: Shapes;
   frequency: number;
   centerPosX: number;
@@ -11,7 +11,7 @@ interface BlockGroup {
   onDrop: (mino: Mino, shape: Shapes) => void;
 }
 
-const BlockGroup: React.VFC<BlockGroup> = ({
+const BlockGroup: React.VFC<BlockGroupProps> = ({
   shape,
   frequency,
   centerPosX,
