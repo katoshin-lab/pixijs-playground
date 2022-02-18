@@ -53,7 +53,6 @@ const Tetoris = () => {
   const onDrop = useCallback((mino: Mino, shape: Shapes): void => {
     const isCollision = detectCollision(mino);
     if (isCollision) stackMino(mino, shape);
-    // setStack(stackIfCollision(stack, mino, shape));
   }, []);
 
   return (
