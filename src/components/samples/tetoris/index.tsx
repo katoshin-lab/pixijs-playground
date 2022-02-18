@@ -18,7 +18,7 @@ const Tetoris = () => {
   const { useCallback, useState, useEffect, useMemo } = React;
 
   // const [level, setLevel] = useState(1);
-  const level = 4;
+  const level = 10;
   const frequency = useMemo(() => level <= 3 ? { coefficient: 1, multiply: 1 } : level <= 6 ? { coefficient: 0.5, multiply: 2 } : { coefficient: 0.25, multiply: 4 }, [level])
   const [phase, setPhase] = useState(0);
   useTick(_delta => {
@@ -73,6 +73,7 @@ const Tetoris = () => {
       <Graphics draw={draw} />
       {drop &&
         <DropBlockGroup
+          isDrop={drop}
           droppingPhase={phase - droppingPhase}
           onDrop={onDrop}
           frequency={frequency.coefficient}

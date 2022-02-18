@@ -6,13 +6,20 @@ interface FropBlockGroupProps {
   droppingPhase: number;
   frequency: number;
   onDrop: (mino: Mino, shape: Shapes) => void;
+  isDrop: boolean;
 }
 
 const DropBlockGroup: React.VFC<FropBlockGroupProps> = ({
   droppingPhase,
   frequency,
-  onDrop
+  onDrop,
+  isDrop
 }) => {
+  const { useEffect } = React;
+
+  useEffect(() => {
+    
+  }, [isDrop])
 
   return (
     <BlockGroup
