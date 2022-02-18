@@ -38,10 +38,13 @@ const Tetoris = () => {
   }, [])
 
   const [drop, setDrop] = useState(false);
+  const [nextDropPhase, setNextDropPhase] = useState<number | null>(0);
   const [droppingPhase, setDroppingPhase] = useState(0);
   useEffect(() => {
     if (drop) {
       setDroppingPhase(phase);
+    } else if (nextDropPhase === null) {
+      setNextDropPhase(phase + frequency.multiply);
     }
   }, [drop]);
 
@@ -52,8 +55,18 @@ const Tetoris = () => {
   const { stack, detectCollision, stackMino } = useStackManager();
   const onDrop = useCallback((mino: Mino, shape: Shapes): void => {
     const isCollision = detectCollision(mino);
-    if (isCollision) stackMino(mino, shape);
+    if (isCollision) {
+      setDrop(false);
+      stackMino(mino, shape);
+    }
   }, []);
+
+  useEffect(() => {
+    if (!drop && phase === nextDropPhase) {
+      setDrop(true);
+      setNextDropPhase(null);
+    }
+  }, [phase])
 
   return (
     <Container position={[0, 0]}>
