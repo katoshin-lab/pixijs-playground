@@ -1,4 +1,4 @@
-export default Object.freeze({
+export default {
   size: {
     block: 40,
     board: {
@@ -56,4 +56,4 @@ export default Object.freeze({
       { x: -1, y: -1 },
     ]
   }
-})
+} as const;
