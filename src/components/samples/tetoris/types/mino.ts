@@ -1,8 +1,7 @@
-import config from '../config';
-
 export type Block = { x: number, y: number };
 export type Mino = Block[];
 
-export type Shapes = keyof typeof config.shapes;
+export type Shape = 't' | 'i' | 'o' | 'l' | 'j' | 's' | 'z';
+export type Shapes = { [key in Shape]: Mino }
 
-export type Stack = (Shapes | null)[][]
+export type Stack = (Shape | null)[][]
