@@ -6,19 +6,21 @@ import DropBlockGroup from './organisms/dropBlockGroup';
 import StackDrawer from './organisms/stackDrawer';
 // hooks
 import { useStackManager } from './hooks/stackManager';
+import { useMinoDropManager } from './hooks/minoDropManager';
 // modules
 import config from './config';
 // types
-import type { Mino, Shape } from './types/mino';
+import type { Mino } from './types/mino';
 
 let i = 0;
 let phaseDurationNum = 0;
 
 const Tetoris = () => {
   const { useCallback, useState, useEffect, useMemo } = React;
+  const { currentMino, shiftPool } = useMinoDropManager();
 
   // const [level, setLevel] = useState(1);
-  const level = 10;
+  const level = 5;
   const frequency = useMemo(() => level <= 3 ? { coefficient: 1, multiply: 1 } : level <= 6 ? { coefficient: 0.5, multiply: 2 } : { coefficient: 0.25, multiply: 4 }, [level])
   const [phase, setPhase] = useState(0);
   useTick(_delta => {
@@ -29,6 +31,7 @@ const Tetoris = () => {
     phaseDurationNum = Math.floor(i);
   })
 
+  // テトリスの盤面
   const draw = useCallback((g: PIXI.Graphics): void => {
     g.clear();
     g.beginFill(0x232323);
@@ -37,11 +40,19 @@ const Tetoris = () => {
     g.endFill();
   }, [])
 
+  // 落下中かどうか
   const [drop, setDrop] = useState(false);
+  // 次にdropを開始するphase
   const [nextDropPhase, setNextDropPhase] = useState<number | null>(0);
+  // dropを開始してからのphase数
   const [droppingPhase, setDroppingPhase] = useState(0);
+  // ミノをスタックするキュー
+  const [nextStacking, setNextStacking] = useState<Mino | undefined>();
+  const { stack, detectCollision, stackMino } = useStackManager();
   useEffect(() => {
     if (drop) {
+      shiftPool();
+      setNextStacking(undefined);
       setDroppingPhase(phase);
     } else if (nextDropPhase === null) {
       setNextDropPhase(phase + frequency.multiply);
@@ -52,14 +63,20 @@ const Tetoris = () => {
     setDrop(true);
   }, []);
 
-  const { stack, detectCollision, stackMino } = useStackManager();
-  const onDrop = useCallback((mino: Mino, shape: Shape): void => {
+  const onDrop = (mino: Mino): void => {
     const isCollision = detectCollision(mino);
     if (isCollision) {
-      setDrop(false);
-      stackMino(mino, shape);
+      setNextStacking(mino);
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    if (nextStacking) {
+      stackMino(nextStacking, currentMino);
+      setNextStacking(undefined);
+      setDrop(false);
+    }
+  }, [nextStacking])
 
   useEffect(() => {
     if (!drop && phase === nextDropPhase) {
@@ -73,6 +90,7 @@ const Tetoris = () => {
       <Graphics draw={draw} />
       { drop &&
         <DropBlockGroup
+          currentMino={currentMino}
           droppingPhase={phase - droppingPhase}
           onDrop={onDrop}
           frequency={frequency.coefficient}

@@ -9,7 +9,7 @@ interface BlockGroupProps {
   frequency: number;
   centerPosX: number;
   centerPosY: number;
-  onDrop: (mino: Mino, shape: Shape) => void;
+  onDrop: (mino: Mino) => void;
 }
 
 const BlockGroup: React.VFC<BlockGroupProps> = ({
@@ -23,10 +23,7 @@ const BlockGroup: React.VFC<BlockGroupProps> = ({
   const { useEffect } = React;
 
   useEffect(() => {
-    onDrop(
-      config.shapes[shape].map(({ x, y }) => ({ x: centerPosX + x, y: centerPosY * frequency + y })),
-      shape
-    );
+    onDrop(config.shapes[shape].map(({ x, y }) => ({ x: centerPosX + x, y: centerPosY * frequency + y })));
   }, [centerPosY])
 
   return (

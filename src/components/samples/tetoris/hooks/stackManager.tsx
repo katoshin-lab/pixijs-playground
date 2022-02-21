@@ -27,12 +27,14 @@ export const useStackManager = () => {
     return isHitBoardBase;
   }
 
-  const stackMino = (mino: Mino, shape: Shape): void => {
-    const stacked = [...stack];
-    mino.forEach(block => {
-      stacked[block.y][block.x] = shape;
-    });
-    setStack(stacked);
+  const stackMino = (mino: Mino, shape: Shape | undefined): void => {
+    if (shape) {
+      const stacked = [...stack];
+      mino.forEach(block => {
+        stacked[block.y][block.x] = shape;
+      });
+      setStack(stacked);
+    }
   }
 
   return { stack, detectCollision, stackMino };

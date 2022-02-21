@@ -24,7 +24,6 @@ export const useMinoDropManager = () => {
     if (copied.length === allMinos.length) {
       copied.push(...shuffle(allMinos));
     }
-    console.log(copied, cur)
     setCurrentMino(cur);
     setMinoPool(copied);
   }

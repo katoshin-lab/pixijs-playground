@@ -11,7 +11,6 @@ interface BlockProps {
 
 const Block: React.VFC<BlockProps> = ({ color = 0x252525, posX = 0, posY = 0 }) => {
   const { useCallback } = React;
-  console.log(posY)
   const draw = useCallback((g: PIXI.Graphics): void => {
     g.clear();
     g.beginFill(color);

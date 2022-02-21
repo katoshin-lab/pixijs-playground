@@ -1,25 +1,20 @@
 import * as React from 'react';
 import BlockGroup from '../molecules/blockGroup';
-import { useMinoDropManager } from '../hooks/minoDropManager';
 import type { Mino, Shape } from '../types/mino';
 
 interface FropBlockGroupProps {
+  currentMino: Shape | undefined;
   droppingPhase: number;
   frequency: number;
-  onDrop: (mino: Mino, shape: Shape) => void;
+  onDrop: (mino: Mino) => void;
 }
 
 const DropBlockGroup: React.VFC<FropBlockGroupProps> = ({
+  currentMino,
   droppingPhase,
   frequency,
   onDrop,
 }) => {
-  const { useEffect } = React;
-  const { currentMino, shiftPool } = useMinoDropManager();
-
-  useEffect(() => {
-    shiftPool();
-  }, [])
 
   return (
     currentMino ?
