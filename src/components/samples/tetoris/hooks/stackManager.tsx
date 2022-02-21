@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { Mino, Shapes, Stack } from '../types/mino';
+import type { Mino, Shape, Stack } from '../types/mino';
 import config from '../config';
 
 export const useStackManager = () => {
@@ -27,7 +27,7 @@ export const useStackManager = () => {
     return isHitBoardBase;
   }
 
-  const stackMino = (mino: Mino, shape: Shapes): void => {
+  const stackMino = (mino: Mino, shape: Shape): void => {
     const stacked = [...stack];
     mino.forEach(block => {
       stacked[block.y][block.x] = shape;

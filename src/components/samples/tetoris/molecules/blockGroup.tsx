@@ -2,14 +2,14 @@ import * as React from 'react';
 import { Container } from '@inlet/react-pixi';
 import Block from '../atoms/block';
 import config from '../config';
-import type { Mino, Shapes } from '../types/mino';
+import type { Mino, Shape } from '../types/mino';
 
 interface BlockGroupProps {
-  shape: Shapes;
+  shape: Shape;
   frequency: number;
   centerPosX: number;
   centerPosY: number;
-  onDrop: (mino: Mino, shape: Shapes) => void;
+  onDrop: (mino: Mino, shape: Shape) => void;
 }
 
 const BlockGroup: React.VFC<BlockGroupProps> = ({

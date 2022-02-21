@@ -9,7 +9,7 @@ import { useStackManager } from './hooks/stackManager';
 // modules
 import config from './config';
 // types
-import type { Mino, Shapes } from './types/mino';
+import type { Mino, Shape } from './types/mino';
 
 let i = 0;
 let phaseDurationNum = 0;
@@ -53,7 +53,7 @@ const Tetoris = () => {
   }, []);
 
   const { stack, detectCollision, stackMino } = useStackManager();
-  const onDrop = useCallback((mino: Mino, shape: Shapes): void => {
+  const onDrop = useCallback((mino: Mino, shape: Shape): void => {
     const isCollision = detectCollision(mino);
     if (isCollision) {
       setDrop(false);
