@@ -16,7 +16,7 @@ let i = 0;
 let phaseDurationNum = 0;
 
 const Tetoris = () => {
-  const { useCallback, useState, useEffect, useMemo } = React;
+  const { useCallback, useState, useEffect, useMemo, useRef } = React;
   const { currentMino, shiftPool } = useMinoDropManager();
 
   // const [level, setLevel] = useState(1);
@@ -46,14 +46,14 @@ const Tetoris = () => {
   const [nextDropPhase, setNextDropPhase] = useState<number | null>(0);
   // dropを開始してからのphase数
   const [droppingPhase, setDroppingPhase] = useState(0);
-  // ミノをスタックするキュー
-  const [nextStacking, setNextStacking] = useState<Mino | undefined>();
+  // ミノをスタックできる状態かどうか
+  const stackFlgRef = useRef<boolean | undefined>();
   const { stack, detectCollision, stackMino } = useStackManager();
   useEffect(() => {
     if (drop) {
       shiftPool();
-      setNextStacking(undefined);
       setDroppingPhase(phase);
+      stackFlgRef.current = true;
     } else if (nextDropPhase === null) {
       setNextDropPhase(phase + frequency.multiply);
     }
@@ -65,18 +65,12 @@ const Tetoris = () => {
 
   const onDrop = (mino: Mino): void => {
     const isCollision = detectCollision(mino);
-    if (isCollision) {
-      setNextStacking(mino);
-    }
-  };
-
-  useEffect(() => {
-    if (nextStacking) {
-      stackMino(nextStacking, currentMino);
-      setNextStacking(undefined);
+    if (isCollision && stackFlgRef.current) {
+      stackFlgRef.current = false;
+      stackMino(mino, currentMino);
       setDrop(false);
-    }
-  }, [nextStacking])
+    };
+  };
 
   useEffect(() => {
     if (!drop && phase === nextDropPhase) {
