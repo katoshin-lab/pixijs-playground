@@ -71,9 +71,8 @@ const Tetoris = () => {
   return (
     <Container position={[0, 0]}>
       <Graphics draw={draw} />
-      {drop &&
+      { drop &&
         <DropBlockGroup
-          isDrop={drop}
           droppingPhase={phase - droppingPhase}
           onDrop={onDrop}
           frequency={frequency.coefficient}
