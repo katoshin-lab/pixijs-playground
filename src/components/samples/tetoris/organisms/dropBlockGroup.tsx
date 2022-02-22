@@ -1,6 +1,7 @@
 import * as React from 'react';
 import BlockGroup from '../molecules/blockGroup';
 import type { Mino, Shape } from '../types/mino';
+import config from '../config';
 
 interface FropBlockGroupProps {
   currentMino: Shape | undefined;
@@ -16,12 +17,14 @@ const DropBlockGroup: React.VFC<FropBlockGroupProps> = ({
   onDrop,
 }) => {
 
+  const maxY = config.size.board.vertical / config.size.block;
+
   return (
     currentMino ?
     <BlockGroup
       shape={currentMino}
       centerPosX={5}
-      centerPosY={droppingPhase}
+      centerPosY={droppingPhase <= maxY / frequency - 1 ? droppingPhase : maxY}
       frequency={frequency}
       onDrop={onDrop}
       />
