@@ -43,7 +43,7 @@ const shapes: Shapes = {
     { x: 0, y: -1 },
     { x: -1, y: -1 },
   ]
-}
+};
 
 const config = {
   size: {
@@ -60,6 +60,6 @@ const config = {
     coefficient: 2
   },
   shapes
-} as const ;
+} as const;
 
 export default config;
