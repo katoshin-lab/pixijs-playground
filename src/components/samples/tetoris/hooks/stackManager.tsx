@@ -14,17 +14,25 @@ export const useStackManager = () => {
 
   const detectCollision = (mino: Mino): boolean => {
     const baseBlocks = mino.filter((block, _, arr) => {
-      const sameXBlocks = arr.filter(a => a.x === block.x);
+      const sameXBlocks = arr.filter(({x}) => x === block.x);
       if (sameXBlocks.length === 1) {
         return true;
       } else {
-        const maxY = Math.max(...sameXBlocks.map(xBlock => xBlock.y));
+        const maxY = Math.max(...sameXBlocks.map(({y}) => y));
         return maxY === block.y;
       }
     })
-    const isHitBoardBase = baseBlocks.some(block => block.y === baseY - 1);
 
-    return isHitBoardBase;
+    let isHitBoardBase: boolean = false;
+    let isHitStack: boolean = false;
+
+    if (baseBlocks.every(block => block.y - Math.floor(block.y) === 0)) {
+      isHitBoardBase = baseBlocks.some(({y}) => y === baseY - 1);
+
+      isHitStack = isHitBoardBase || baseBlocks.some(({x, y}) => stack[y + 1][x] !== null);
+    }
+
+    return isHitBoardBase || isHitStack;
   }
 
   const stackMino = (mino: Mino, shape: Shape | undefined): void => {
