@@ -48,7 +48,7 @@ const Tetoris = () => {
   const [droppingPhase, setDroppingPhase] = useState(0);
   // ミノをスタックできる状態かどうか
   const stackFlgRef = useRef<boolean | undefined>();
-  const { stack, detectCollision, stackMino } = useStackManager();
+  const { stack, minoX, refreshMino, resetX, detectCollision, stackMino } = useStackManager();
   useEffect(() => {
     if (drop) {
       shiftPool();
@@ -64,11 +64,14 @@ const Tetoris = () => {
   }, []);
 
   const onDrop = (mino: Mino): void => {
+    refreshMino(mino);
     const isCollision = detectCollision(mino);
     if (isCollision && stackFlgRef.current) {
       stackFlgRef.current = false;
       stackMino(mino, currentMino);
       setDrop(false);
+      console.log('stack')
+      resetX();
     };
   };
 
@@ -86,6 +89,7 @@ const Tetoris = () => {
         <DropBlockGroup
           currentMino={currentMino}
           droppingPhase={phase - droppingPhase}
+          x={minoX}
           onDrop={onDrop}
           frequency={frequency.coefficient}
         />

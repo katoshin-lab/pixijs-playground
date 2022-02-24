@@ -6,6 +6,7 @@ import config from '../config';
 interface FropBlockGroupProps {
   currentMino: Shape | undefined;
   droppingPhase: number;
+  x: number;
   frequency: number;
   onDrop: (mino: Mino) => void;
 }
@@ -13,6 +14,7 @@ interface FropBlockGroupProps {
 const DropBlockGroup: React.VFC<FropBlockGroupProps> = ({
   currentMino,
   droppingPhase,
+  x,
   frequency,
   onDrop,
 }) => {
@@ -23,11 +25,11 @@ const DropBlockGroup: React.VFC<FropBlockGroupProps> = ({
     currentMino ?
     <BlockGroup
       shape={currentMino}
-      centerPosX={5}
+      centerPosX={x}
       centerPosY={droppingPhase <= maxY / frequency - 1 ? droppingPhase : maxY}
       frequency={frequency}
       onDrop={onDrop}
-      />
+    />
     : null
   )
 }
