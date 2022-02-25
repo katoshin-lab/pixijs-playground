@@ -14,7 +14,7 @@ export const useStackManager = () => {
 
   const [minoX, setMinoX] = useState(INITIAL_X);
   const [stack, setStack] = useState<Stack>(stackLevelsArray);
-  const droppingMino = useRef < Mino | null>(null);
+  const droppingMino = useRef <Mino>();
 
   const resetX = (): void => setMinoX(INITIAL_X);
   const refreshMino = (mino: Mino): void => {
@@ -29,7 +29,11 @@ export const useStackManager = () => {
     }
   }, []);
 
+  const processingMove = useRef<boolean>();
   const handlePressKey = (e: KeyboardEvent) => {
+    console.log(processingMove, e.code)
+    if (processingMove.current) return;
+    processingMove.current = true;
     switch (e.code) {
       case 'ArrowRight':
         moveHorizontal(1);
@@ -40,16 +44,17 @@ export const useStackManager = () => {
       default:
         break;
     }
-    console.log(e.code)
+    processingMove.current = false;
   }
 
   const moveHorizontal = (xGap: number): void => {
     if (droppingMino.current) {
       const tentativeMovedMino: Mino = droppingMino.current.map(({ x, y }) => ({ x: x + xGap, y }));
       const collision = detectHorizontalCollision(tentativeMovedMino);
-      console.log('collision', collision);
-      console.log(minoX + xGap)
-      collision || setMinoX(minoX + xGap);
+      if (!collision) {
+        setMinoX(x => x + xGap);
+        refreshMino(tentativeMovedMino);
+      }
     }
   }
 
@@ -59,9 +64,8 @@ export const useStackManager = () => {
 
     isHitBoardWall = mino.some(({ x }) => horizontalRange.min > x || horizontalRange.max < x);
 
-    isHitStack = isHitBoardWall || mino.some(({ x, y }) => { stack[Math.ceil(y)][x] !== null })
-    
-    console.log(isHitBoardWall, isHitStack)
+    isHitStack = isHitBoardWall || mino.some(({ x, y }) => { y >= 0 && stack[Math.ceil(y)][x] !== null })
+
     return isHitBoardWall || isHitStack;
   }
 
@@ -90,7 +94,7 @@ export const useStackManager = () => {
 
   const stackMino = (mino: Mino, shape: Shape | undefined): void => {
     if (shape) {
-      droppingMino.current = null;
+      droppingMino.current = undefined;
       const stacked = [...stack];
       mino.forEach(block => {
         stacked[block.y][block.x] = shape;
